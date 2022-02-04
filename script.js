@@ -14,37 +14,49 @@ renderGrid();
 
 //Event Listeners
 document.addEventListener("keydown", (e) => {
-    e.preventDefault();
     if(e.keyCode == 8 && currentGuess.length != 0) {
         //Backspace
+        e.preventDefault();
         currentGuess = currentGuess.substring(0, currentGuess.length - 1);
     } else if(e.keyCode == 13) {
         //Enter
+        e.preventDefault();
         submitGuess();
     }
     if(currentGuess.length >= 5) {
         //Guess Is Already 5 Numbers
+        e.preventDefault();
         return;
     }
     if(e.keyCode == 48 || e.keyCode == 96) {
+        e.preventDefault();
         currentGuess = currentGuess + "0";
     } else if(e.keyCode == 49 || e.keyCode == 97) {
+        e.preventDefault();
         currentGuess = currentGuess + "1";
     } else if(e.keyCode == 50 || e.keyCode == 98) {
+        e.preventDefault();
         currentGuess = currentGuess + "2";
     } else if(e.keyCode == 51 || e.keyCode == 99) {
+        e.preventDefault();
         currentGuess = currentGuess + "3";
     } else if(e.keyCode == 52 || e.keyCode == 100) {
+        e.preventDefault();
         currentGuess = currentGuess + "4";
     } else if(e.keyCode == 53 || e.keyCode == 101) {
+        e.preventDefault();
         currentGuess = currentGuess + "5";
     } else if(e.keyCode == 54 || e.keyCode == 102) {
+        e.preventDefault();
         currentGuess = currentGuess + "6";
     } else if(e.keyCode == 55 || e.keyCode == 103) {
+        e.preventDefault();
         currentGuess = currentGuess + "7";
     } else if(e.keyCode == 56 || e.keyCode == 104) {
+        e.preventDefault();
         currentGuess = currentGuess + "8";
     } else if(e.keyCode == 57 || e.keyCode == 105) {
+        e.preventDefault();
         currentGuess = currentGuess + "9";
     }
     renderGrid();
@@ -149,6 +161,11 @@ function renderGrid() {
 }
 
 function submitGuess() {
+    //Check If Player Lost
+    if(guesses.length == 6) {
+        alert("Sorry, better luck next time\nThe number was " + answerNum.join("") + "\n\nTo try again, refresh the page!");
+        return;
+    }
     //Make Sure Guess Is 5 Digits
     if(currentGuess.length != 5) {
         alert("Number Is 5 Digits Long");
@@ -178,4 +195,10 @@ function submitGuess() {
     guesses.push(currentGuess);
     currentGuess = "";
     renderGrid();
+    //Check If Player Lost
+    if(guesses.length == 6) {
+        setTimeout(() => {
+            alert("Sorry, better luck next time\nThe number was " + answerNum.join("") + "\n\nTo try again, refresh the page!");
+        }, 500);
+    }
 }
